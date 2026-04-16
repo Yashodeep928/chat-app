@@ -1,21 +1,28 @@
 import MessageArea from "./MessageArea"
-import { webSocket } from "./api/websocket"
+import { socket } from "./api/websocket"
+
+import { useState } from "react"
+
+
 
 function TypeMessage() {
-    const sendMsg = () =>{
+    const [message,setMessage] = useState("")
+
+    const sendMsg =  () =>{
+         
+        socket.send(message)
+        setMessage("")
 
     }
   return (
     <>
     
-    <input type="text"  />
+    <input value={message} onChange={(e)=> setMessage(e.target.value)}  type="text"/>
 
     <button onClick={sendMsg}>Send</button>
 
 
-    <MessageArea
-      messages={messages}
-    />
+    <MessageArea Message={message}/>
     
     </>
   )

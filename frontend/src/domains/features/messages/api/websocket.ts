@@ -1,5 +1,5 @@
-export const webSocket = new WebSocket("ws//localhost:3000");
+export const socket = new WebSocket("ws://localhost:3000");
 
-webSocket.onopen = ()=>{
-    
-}
+socket.onopen = () => {
+  console.log("Connection Open");
+};
