@@ -1,16 +1,15 @@
-
 type MessageProps = {
-  Message : String;
-}
+  messages: string[];
+};
 
-function MessageArea({Message}:MessageProps  ) {
+function MessageArea({ messages }: MessageProps) {
   return (
     <>
-    
-    <p> Your recieved {Message}</p>
-    
+      {messages.map((msg, index) => (
+        <p key={index}>💬 {msg}</p>
+      ))}
     </>
-  )
+  );
 }
 
-export default MessageArea
+export default MessageArea;

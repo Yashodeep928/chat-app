@@ -1,13 +1,13 @@
-import TypeMessage from "./TypeMessage"
+type StatusProps = {
+  status: string;
+};
 
-function ProfileArea() {
+function ProfileArea({ status }: StatusProps) {
   return (
     <>
-    
-    <TypeMessage/>
-    
+      <p>Typing status is {status}</p>
     </>
-  )
+  );
 }
 
-export default ProfileArea
+export default ProfileArea;
