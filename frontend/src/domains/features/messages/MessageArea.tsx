@@ -1,12 +1,12 @@
-type MessageProps = {
+type Props = {
   messages: string[];
 };
 
-function MessageArea({ messages }: MessageProps) {
+function MessageArea({ messages }: Props) {
   return (
     <>
-      {messages.map((msg, index) => (
-        <p key={index}>💬 {msg}</p>
+      {messages.map((msg, i) => (
+        <p key={i}>💬 {msg}</p>
       ))}
     </>
   );

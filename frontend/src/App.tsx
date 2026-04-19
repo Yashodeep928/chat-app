@@ -1,5 +1,5 @@
 import ChatList from "./domains/features/conversations/ChatList";
-import TypeMessage from "./domains/features/messages/TypeMessage";
+// import TypeMessage from "./domains/features/messages/TypeMessage";
 
 function App() {
   return (

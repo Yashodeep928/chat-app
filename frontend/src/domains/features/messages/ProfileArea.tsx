@@ -1,13 +1,5 @@
-type StatusProps = {
-  status: string;
-};
-
-function ProfileArea({ status }: StatusProps) {
-  return (
-    <>
-      <p>Typing status is {status}</p>
-    </>
-  );
+function ProfileArea({ status }: { status: string }) {
+  return <p>Status: {status}</p>;
 }
 
 export default ProfileArea;

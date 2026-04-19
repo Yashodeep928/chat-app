@@ -1,27 +1,32 @@
-import { WebSocketServer } from "ws";
+import { WebSocketServer, WebSocket } from "ws";
 
 const wss = new WebSocketServer({ port: 3000 });
 
-const clients = new Set();
+const users = new Map();
 
 wss.on("connection", (ws) => {
-  console.log("🟢 Connected to the server");
+  console.log("🟢 Connected");
 
-  clients.add(ws);
-
-  // ✅ Message event (correct place)
   ws.on("message", (message) => {
-    console.log("📩 Message Received:", message.toString());
+    const data = JSON.parse(message.toString());
 
-    // Broadcast
-    clients.forEach((client) => {
-      client.send(message.toString());
-    });
+    if (data.type === "init") {
+      ws.userId = data.user;
+      users.set(data.user, ws);
+      return;
+    }
+
+    const target = users.get(data.to);
+
+    if (target && target.readyState === WebSocket.OPEN) {
+      target.send(JSON.stringify(data));
+    }
   });
 
-  // ✅ Close event (correct usage)
   ws.on("close", () => {
-    console.log("🔴 Client disconnected");
-    clients.delete(ws);
+    if (ws.userId) {
+      users.delete(ws.userId);
+      console.log(ws.userId, "disconnected");
+    }
   });
 });
