@@ -16,6 +16,15 @@ wss.on("connection", (ws) => {
       return;
     }
 
+
+    users.forEach((client)=>{
+      client.send(JSON.stringify({
+        type:"online",
+        user:data.user
+
+      }))
+    })
+
     const target = users.get(data.to);
 
     if (target && target.readyState === WebSocket.OPEN) {
