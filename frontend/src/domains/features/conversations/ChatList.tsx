@@ -1,38 +1,49 @@
 import { useState } from "react";
 import TypeMessage from "../messages/TypeMessage";
+import { FaUserCircle } from "react-icons/fa";
 
 const styles = {
   container: {
     display: "flex",
     height: "100vh",
-    fontFamily: "Arial"
+    fontFamily: "'Poppins', sans-serif",
+    background: "linear-gradient(135deg, #667eea, #764ba2)"
   },
   sidebar: {
-    width: "200px",
-    borderRight: "1px solid #ccc",
-    padding: "10px"
+    width: "240px",
+    background: "#ffffff",
+    padding: "20px",
+    boxShadow: "2px 0 15px rgba(0,0,0,0.1)"
   },
   user: {
-    padding: "8px",
+    display: "flex",
+    alignItems: "center",
+    gap: "10px",
+    padding: "10px",
     cursor: "pointer",
-    borderRadius: "5px",
-    marginBottom: "5px"
+    borderRadius: "10px",
+    marginBottom: "10px",
+    transition: "all 0.3s ease"
   },
   chatArea: {
     flex: 1,
-    padding: "20px"
+    padding: "20px",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center"
   }
 };
 
 function ChatList() {
   const [selectedUser, setSelectedUser] = useState("");
-
   const users = ["user-1", "user-2"];
 
   return (
     <div style={styles.container}>
       <div style={styles.sidebar}>
-        <h3>Users</h3>
+        <h3 style={{ marginBottom: "20px", fontWeight: 600 }}>
+          💬 Chats
+        </h3>
 
         {users.map((u) => (
           <div
@@ -40,10 +51,13 @@ function ChatList() {
             onClick={() => setSelectedUser(u)}
             style={{
               ...styles.user,
-              backgroundColor: selectedUser === u ? "#e0f2ff" : "white"
+              background:
+                selectedUser === u ? "#667eea" : "#f5f6fa",
+              color: selectedUser === u ? "#fff" : "#333"
             }}
           >
-            {u}
+            <FaUserCircle size={22} />
+            <span>{u}</span>
           </div>
         ))}
       </div>
@@ -52,7 +66,9 @@ function ChatList() {
         {selectedUser ? (
           <TypeMessage selectedUser={selectedUser} />
         ) : (
-          <p>Select a user to start chatting</p>
+          <p style={{ color: "#fff", fontSize: "18px" }}>
+            Select a chat to start 💬
+          </p>
         )}
       </div>
     </div>

@@ -8,7 +8,7 @@ socket.onopen = () => {
 
   socket.send(JSON.stringify({
     type: "init",
-    user: userId,
-    presence:"online"
+    user: userId
+    // presence:"online"
   }));
 };

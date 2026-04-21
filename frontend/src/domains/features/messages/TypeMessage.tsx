@@ -18,9 +18,7 @@ function TypeMessage({ selectedUser }: { selectedUser: string }) {
       to: selectedUser
     }));
 
-    // ✅ show instantly
     setMessages((prev) => [...prev, message]);
-
     setMessage("");
   };
 
@@ -42,7 +40,7 @@ function TypeMessage({ selectedUser }: { selectedUser: string }) {
 
         clearTimeout(typingTimeout);
         typingTimeout = setTimeout(() => {
-          setStatus("");
+          setStatus("online");
         }, 1000);
       }
 
@@ -52,25 +50,67 @@ function TypeMessage({ selectedUser }: { selectedUser: string }) {
   }, [selectedUser]);
 
   return (
-    <>
-      <input
-        value={message}
-        onChange={(e) => {
-          setMessage(e.target.value);
+    <div style={{
+      width: "100%",
+      maxWidth: "600px",
+      background: "#fff",
+      borderRadius: "12px",
+      padding: "20px",
+      boxShadow: "0 10px 25px rgba(0,0,0,0.2)"
+    }}>
 
-          socket.send(JSON.stringify({
-            type: "typing",
-            from: userId,
-            to: selectedUser
-          }));
-        }}
-      />
-
-      <button onClick={sendMsg}>Send</button>
+      <ProfileArea status={status} />
 
       <MessageArea messages={messages} />
-      <ProfileArea status={status} />
-    </>
+
+      <div style={{
+        display: "flex",
+        marginTop: "15px",
+        gap: "10px"
+      }}>
+        <input
+          value={message}
+          onChange={(e) => {
+            setMessage(e.target.value);
+
+            socket.send(JSON.stringify({
+              type: "typing",
+              from: userId,
+              to: selectedUser
+            }));
+          }}
+          placeholder="Type a message..."
+          style={{
+            flex: 1,
+            padding: "10px",
+            borderRadius: "8px",
+            border: "1px solid #ccc",
+            outline: "none"
+          }}
+        />
+
+        <button
+          onClick={sendMsg}
+          style={{
+            padding: "10px 15px",
+            borderRadius: "8px",
+            border: "none",
+            background: "#4facfe",
+            color: "#fff",
+            cursor: "pointer",
+            transition: "0.3s"
+          }}
+          onMouseEnter={(e) =>
+            (e.currentTarget.style.background = "#00c6ff")
+          }
+          onMouseLeave={(e) =>
+            (e.currentTarget.style.background = "#4facfe")
+          }
+        >
+          Send 🚀
+        </button>
+      </div>
+    </div>
   );
 }
 
