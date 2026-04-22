@@ -52,7 +52,7 @@ function ChatList() {
             style={{
               ...styles.user,
               background:
-                selectedUser === u ? "#667eea" : "#f5f6fa",
+                selectedUser === u ? "green" : "#f5f6fa",
               color: selectedUser === u ? "#fff" : "#333"
             }}
           >
